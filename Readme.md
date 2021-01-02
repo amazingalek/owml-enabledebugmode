@@ -5,6 +5,8 @@ This mod enables the debug mode left in the code by the devs.
 Warning: some debug actions will mess with your progression while others might crash your game or not work. 
 Not all of them have been tested/verified.
 
+The warp keys are configurable in the in-game MODS menu.
+
 | Key | Description |
 | --- | ----------- |
 | 0 | Warp to Ship |
