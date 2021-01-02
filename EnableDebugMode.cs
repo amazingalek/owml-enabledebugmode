@@ -31,7 +31,7 @@ namespace OWML.EnableDebugMode
 
 		public void Start()
 		{
-			ModHelper.Console.WriteLine($"In {nameof(EnableDebugMode)}!", MessageType.Info);
+			ModHelper.Console.WriteLine($"In {nameof(EnableDebugMode)}!", MessageType.Debug);
 			ModHelper.HarmonyHelper.EmptyMethod<DebugInputManager>("Awake");
 			ModHelper.Events.Subscribe<PlayerSpawner>(Events.AfterAwake);
 			ModHelper.Events.Event += OnEvent;
@@ -59,8 +59,6 @@ namespace OWML.EnableDebugMode
 			}
 
 			HandleWarping();
-
-			TestUnpatching();
 		}
 
 		private void HandleWarping()
@@ -110,29 +108,14 @@ namespace OWML.EnableDebugMode
 			{
 				_renderValue = 0;
 			}
-			ModHelper.Console.WriteLine("Render value: " + _renderValue);
+			ModHelper.Console.WriteLine("Render value: " + _renderValue, MessageType.Debug);
 			typeof(GUIMode).GetAnyMember("_renderMode").SetValue(null, _renderValue);
 		}
 
 		private void WarpTo(SpawnLocation location)
 		{
-			ModHelper.Console.WriteLine($"Warping to {location}!");
+			ModHelper.Console.WriteLine($"Warping to {location}!", MessageType.Debug);
 			_playerSpawner.DebugWarp(_playerSpawner.GetSpawnPoint(location));
-		}
-
-		private void TestUnpatching()
-		{
-			if (Input.GetKeyDown(KeyCode.F7))
-			{
-				ModHelper.Console.WriteLine("Removing Jump");
-				ModHelper.HarmonyHelper.EmptyMethod<PlayerCharacterController>("ApplyJump");
-			}
-
-			if (Input.GetKeyDown(KeyCode.F8))
-			{
-				ModHelper.Console.WriteLine("Restoring Jump");
-				ModHelper.HarmonyHelper.Unpatch<PlayerCharacterController>("ApplyJump");
-			}
 		}
 	}
 }
