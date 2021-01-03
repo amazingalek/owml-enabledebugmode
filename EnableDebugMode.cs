@@ -1,6 +1,7 @@
 ﻿using OWML.ModHelper;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Reflection;
 using OWML.Common;
 using OWML.Utils;
 
@@ -109,7 +110,7 @@ namespace OWML.EnableDebugMode
 				_renderValue = 0;
 			}
 			ModHelper.Console.WriteLine("Render value: " + _renderValue, MessageType.Debug);
-			typeof(GUIMode).GetAnyMember("_renderMode").SetValue(null, _renderValue);
+			(typeof(GUIMode).GetAnyMember("_renderMode") as FieldInfo)?.SetValue(null, _renderValue);
 		}
 
 		private void WarpTo(SpawnLocation location)
