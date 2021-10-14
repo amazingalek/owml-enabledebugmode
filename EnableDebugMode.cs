@@ -1,9 +1,9 @@
 ﻿using OWML.ModHelper;
 using UnityEngine;
-using System.Collections.Generic;
 using System.Reflection;
 using OWML.Common;
 using OWML.Utils;
+using UnityEngine.InputSystem;
 
 namespace OWML.EnableDebugMode
 {
@@ -12,23 +12,6 @@ namespace OWML.EnableDebugMode
 		private int _renderValue;
 		private bool _isStarted;
 		private PlayerSpawner _playerSpawner;
-		private readonly Dictionary<string, IModInputCombination> _inputs = new();
-
-		public override void Configure(IModConfig config)
-		{
-			foreach (var input in _inputs)
-			{
-				ModHelper.Input.UnregisterCombination(input.Value);
-			}
-			foreach (var key in config.Settings.Keys)
-			{
-				var value = config.GetSettingsValue<string>(key);
-				if (!string.IsNullOrEmpty(value))
-				{
-					_inputs[key] = ModHelper.Input.RegisterCombination(this, key, value);
-				}
-			}
-		}
 
 		public void Start()
 		{
@@ -54,7 +37,7 @@ namespace OWML.EnableDebugMode
 				return;
 			}
 
-			if (ModHelper.Input.IsNewlyPressed(_inputs["Cycle GUI mode"]))
+			if (Keyboard.current[Key.F1].wasPressedThisFrame)
 			{
 				CycleGUIMode();
 			}
@@ -64,39 +47,39 @@ namespace OWML.EnableDebugMode
 
 		private void HandleWarping()
 		{
-			if (ModHelper.Input.IsNewlyPressed(_inputs["Warp to Interloper"]))
+			if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
 			{
 				WarpTo(SpawnLocation.Comet);
 			}
-			if (ModHelper.Input.IsNewlyPressed(_inputs["Warp to Twins"]))
+			if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
 			{
 				WarpTo(SpawnLocation.HourglassTwin_1);
 			}
-			if (ModHelper.Input.IsNewlyPressed(_inputs["Warp to Timber Hearth"]))
+			if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
 			{
 				WarpTo(SpawnLocation.TimberHearth);
 			}
-			if (ModHelper.Input.IsNewlyPressed(_inputs["Warp to Brittle Hollows"]))
+			if (Keyboard.current[Key.Digit4].wasPressedThisFrame)
 			{
 				WarpTo(SpawnLocation.BrittleHollow);
 			}
-			if (ModHelper.Input.IsNewlyPressed(_inputs["Warp to Giants Deep"]))
+			if (Keyboard.current[Key.Digit5].wasPressedThisFrame)
 			{
 				WarpTo(SpawnLocation.GasGiant);
 			}
-			if (ModHelper.Input.IsNewlyPressed(_inputs["Warp to Dark Bramble"]))
+			if (Keyboard.current[Key.Digit6].wasPressedThisFrame)
 			{
 				WarpTo(SpawnLocation.DarkBramble);
 			}
-			if (ModHelper.Input.IsNewlyPressed(_inputs["Warp to Ship"]))
+			if (Keyboard.current[Key.Digit0].wasPressedThisFrame)
 			{
 				WarpTo(SpawnLocation.Ship);
 			}
-			if (ModHelper.Input.IsNewlyPressed(_inputs["Warp to Quantum Moon"]))
+			if (Keyboard.current[Key.Digit7].wasPressedThisFrame)
 			{
 				WarpTo(SpawnLocation.QuantumMoon);
 			}
-			if (ModHelper.Input.IsNewlyPressed(_inputs["Warp to Attlerock"]))
+			if (Keyboard.current[Key.Digit9].wasPressedThisFrame)
 			{
 				WarpTo(SpawnLocation.LunarLookout);
 			}
